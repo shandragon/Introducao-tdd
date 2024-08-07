@@ -44,6 +44,13 @@ public class ConversorNumeroRomanoTest {
     public void deveEntenderNumerosComoIV() {
         ConversorNumeroRomano romano = new ConversorNumeroRomano();
         int numero = romano.converte("IV");
-        assertEquals(9, numero);
+        assertEquals(4, numero);
+    }
+	
+	@Test
+    public void deveEntenderNumerosComoXIX() {
+        ConversorNumeroRomano romano = new ConversorNumeroRomano();
+        int numero = romano.converte("XIX");
+        assertEquals(19, numero);
     }
 }

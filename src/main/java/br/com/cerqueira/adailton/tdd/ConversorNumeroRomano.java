@@ -19,8 +19,25 @@ public class ConversorNumeroRomano {
 	}
 	
 	public int converte(String numeroRomano) {
-		if(numeroRomano.equals("I")) return 1;
-		else if(numeroRomano.equals("V")) return 5;
-		return tabela.get(numeroRomano.charAt(0));
+		int acumulador = 0;
+		int ultimoVisitado = 0;
+		// Inicia a leitura pelo final da string
+		for (int i = numeroRomano.length() - 1; i >= 0; i--) {
+			// Pega o inteiro a atual
+			int atual = tabela.get(numeroRomano.charAt(i));
+			
+			// Se o inteiro atual for menor que o último
+			int multiplicador = (atual < ultimoVisitado) ? -1 : 1;
+			
+			acumulador += atual * multiplicador;
+			
+			// Atualiza o último número
+			ultimoVisitado = atual;
+		}
+		return acumulador;
+	}
+	
+	private boolean isNumeroValido(String numeroRomano) {
+		return true;
 	}
 }
