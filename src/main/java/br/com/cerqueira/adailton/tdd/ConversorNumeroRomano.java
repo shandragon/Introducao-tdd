@@ -3,6 +3,8 @@ package br.com.cerqueira.adailton.tdd;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.cerqueira.adailton.tdd.exception.NumeroRomanoException;
+
 public class ConversorNumeroRomano {
 	
 	private Map<Character, Integer> tabela;
@@ -18,7 +20,10 @@ public class ConversorNumeroRomano {
 		tabela.put('M', 1000);
 	}
 	
-	public int converte(String numeroRomano) {
+	public int converte(String numeroRomano) throws NumeroRomanoException {
+		if (!isNumeroValido(numeroRomano)) {
+			throw new NumeroRomanoException("NAO EH VALIDO!");
+		}
 		int acumulador = 0;
 		int ultimoVisitado = 0;
 		// Inicia a leitura pelo final da string
@@ -37,7 +42,21 @@ public class ConversorNumeroRomano {
 		return acumulador;
 	}
 	
-	private boolean isNumeroValido(String numeroRomano) {
-		return true;
+	public boolean isNumeroValido(String numeroRomano) {
+		boolean isValido = true;
+		int sequencia = 1;
+		Character ultimoVisitado = numeroRomano.charAt(0);
+		for (int i = 1; i < numeroRomano.length(); i++) {
+			if (ultimoVisitado.equals(numeroRomano.charAt(i))) {
+				sequencia++;
+				if (sequencia >= 4) {
+					isValido = false;
+				}
+			} else {
+				sequencia = 1;
+				ultimoVisitado = numeroRomano.charAt(i);
+			}
+		}
+		return isValido;
 	}
 }
